@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bestelling index{% endblock %}
+
+{% block body %}
+    <h1>Bestelling Lijst</h1>
+
+    <table class="table table-striped table-responsive">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Datum</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bestelling in bestellings %}
+            <tr>
+                <td>{{ bestelling.id }}</td>
+                <td>{{ bestelling.Datum ? bestelling.Datum|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('bestelling_show', {'id': bestelling.id}) }}"><button class="btn btn-primary">Bekijk</button></a>
+                    <a href="{{ path('bestelling_edit', {'id': bestelling.id}) }}"><button class="btn btn-success">Bewerk</button></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Geen rijen gevonden</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('bestelling_new') }}"><button class="btn btn-primary">Maak nieuwe</button></a>
+{% endblock %}

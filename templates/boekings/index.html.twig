@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Reserveren</h1>
+    <hr>
+
+    {% if app.user %}
+        {% if message is defined %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endif %}
+        {% if (form) %}
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        {% else %}
+            <a href="{{ path('reservatie_toevoegen') }}" class="btn btn-primary">Reservering maken</a>
+        {% endif %}
+    {% else %}
+        <h2>Login om te reserveren</h2>
+    {% endif %}
+
+{% endblock %}

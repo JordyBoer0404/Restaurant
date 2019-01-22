@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product index{% endblock %}
+
+{% block body %}
+    <h1>Product Lijst</h1>
+
+    <table class="table table-striped table-responsive">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Naam</th>
+                <th>Beschrijving</th>
+                <th>Prijs</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.id }}</td>
+                <td>{{ product.Naam }}</td>
+                <td>{{ product.Beschrijving }}</td>
+                <td>{{ product.Prijs }}</td>
+                <td>
+                    <a href="{{ path('product_show', {'id': product.id}) }}"><button class="btn btn-primary">Bekijk</button></a>
+                    <a href="{{ path('product_edit', {'id': product.id}) }}"><button class="btn btn-success">Bewerk</button></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Geen rijen gevonden</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('product_new') }}"><button class="btn btn-primary">Maak nieuwe</button></a>
+{% endblock %}

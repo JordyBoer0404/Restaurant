@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tafel index{% endblock %}
+
+{% block body %}
+    <h1>Tafel Lijst</h1>
+
+    <table class="table table-striped table-responsive">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Personen</th>
+                <th>Naam</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tafel in tafels %}
+            <tr>
+                <td>{{ tafel.id }}</td>
+                <td>{{ tafel.Personen }}</td>
+                <td>{{ tafel.Naam }}</td>
+                <td>
+                    <a href="{{ path('tafel_show', {'id': tafel.id}) }}"><button class="btn btn-primary">Bekijk</button></a>
+                    <a href="{{ path('tafel_edit', {'id': tafel.id}) }}"><button class="btn btn-success">Bewerk</button></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Geen rijen gevonden</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('tafel_new') }}"><button class="btn btn-primary">Maak nieuwe</button></a>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Tijden{% endblock %}
+
+{% block body %}
+    <h1>Maak een Tijden</h1>
+
+    {{ include('tijden/_form.html.twig') }}
+<br>
+    <a href="{{ path('tijden_index') }}"><button class="btn btn-primary">Terug naar lijst</button></a>
+{% endblock %}

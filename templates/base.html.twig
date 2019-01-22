@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <title>{% block title %}Restaurant Examen{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+        <h5 class="my-0 mr-md-auto font-weight-normal">Restaurant</h5>
+        <nav class="my-2 my-md-0 mr-md-3">
+
+            <a class="p-2 text-dark" href="{{ path('default') }}">Home</a>
+
+            {% if app.user %}
+
+                <a class="p-2 text-dark" href="{{ path('cart') }}">Cart</a>
+                <a class="p-2 text-dark" href="{{ path('reservatie') }}">Reserveren</a>
+
+            {% endif %}
+
+    {% if is_granted('ROLE_SUPER_ADMIN') %}
+
+        <div class="btn-group dropdown">
+
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                CRUD's
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="p-2 text-dark" href="{{ path('categorie_index') }}">Categorie</a><br>
+                <a class="p-2 text-dark" href="{{ path('product_index') }}">Producten</a><br>
+                <a class="p-2 text-dark" href="{{ path('regel_index') }}">Regel</a><br>
+                <a class="p-2 text-dark" href="{{ path('bestelling_index') }}">Bestelling</a><br>
+                <div class="dropdown-divider"></div>
+                <a class="p-2 text-dark" href="{{ path('tafel_index') }}">Tafel</a><br>
+                <a class="p-2 text-dark" href="{{ path('reservering_index') }}">Reservering</a><br>
+                <a class="p-2 text-dark" href="{{ path('tijden_index') }}">Tijden</a><br>
+                <a class="p-2 text-dark" href="{{ path('user_index') }}">Gebruikers</a>
+            </div>
+
+        </div>
+
+    {% endif %}
+
+    {% if app.user %}
+
+        <div class="btn-group">
+            <a class="btn btn-outline-primary" href="{{ path('fos_user_security_logout') }}">Uitloggen</a>
+            <a class="btn btn-outline-primary" href="{{ path('fos_user_profile_show') }}">{{ app.user }}</a>
+        </div>
+
+    {% else %}
+
+
+        <div class="btn-group">
+            <a class="btn btn-outline-primary" href="{{ path('fos_user_registration_register') }}">Registreer</a>
+            <a class="btn btn-outline-primary" href="{{ path('fos_user_security_login') }}">Login</a>
+        </div>
+
+    {% endif %}
+
+        </nav>
+    </div>
+
+    {% if app.request.hasPreviousSession %}
+        {% for type, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+                <div class="flash-{{ type }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+
+    <div class="container">
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+        {% block fos_user_content %}{% endblock fos_user_content %}
+    </div>
+
+    </body>
+</html>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
